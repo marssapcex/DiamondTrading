@@ -1,0 +1,109 @@
+{
+  "_comment": "Initial underlyer menu for RunwayHouse.classCfg. classId is the single source of truth shared by quoter (off-chain pricing), the attester set (settlement reference), and the on-chain class table (hard bounds). Caps follow the admission rule: cost to move the settlement print across the ticket win-band over the omega window must be >= 20x the class max payout. Governance can only TIGHTEN after deploy (mult <= 25x global, divisor >= 60 global). DYNAMIC per-position caps (G3, ALGORITHM.md): P_max = min(T/60, 0.30T, k*lambda*omega) measured live from routed-venue flow supersede these static caps whenever TIGHTER.",
+  "_units": {
+    "maxMultX1e4": "multiplier * 1e4 (10x = 100000)",
+    "stakeDivisor": "max stake = treasury / divisor"
+  },
+  "classes": [
+    {
+      "classId": 0,
+      "asset": "BTC",
+      "hlMarket": "BTC-USDC",
+      "tier": "A",
+      "maxMultX1e4": 250000,
+      "stakeDivisor": 60,
+      "settleRef": "binance+hl cross-check",
+      "notes": "price-discovery venue = Binance; HL print secondary"
+    },
+    {
+      "classId": 1,
+      "asset": "ETH",
+      "hlMarket": "ETH-USDC",
+      "tier": "A",
+      "maxMultX1e4": 250000,
+      "stakeDivisor": 60,
+      "settleRef": "binance+hl cross-check",
+      "notes": ""
+    },
+    {
+      "classId": 2,
+      "asset": "SOL",
+      "hlMarket": "SOL-USDC",
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "binance+hl cross-check",
+      "notes": ""
+    },
+    {
+      "classId": 3,
+      "asset": "HYPE",
+      "hlMarket": "HYPE-USDC",
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "hl print (deepest venue)",
+      "notes": "Hyperliquid IS the deep venue for HYPE; first candidate for L1Read print-proof verifier"
+    },
+    {
+      "classId": 4,
+      "asset": "SP500",
+      "hlMarket": "S&P500-USDC",
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "hl print (only 24/7 venue)",
+      "notes": "HIP-3 equity perp; quoter must haircut or halt sales when book depth thins in TradFi off-hours/weekends"
+    },
+    {
+      "classId": 5,
+      "asset": "NASDAQ100",
+      "hlMarket": "XYZ100-USDC",
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "hl print (only 24/7 venue)",
+      "notes": "HIP-3 equity perp; same off-hours rule as SP500"
+    },
+    {
+      "classId": 6,
+      "asset": "ZEC",
+      "hlMarket": "ZEC-USDC",
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "hl print",
+      "notes": "watchlist: promote only if depth keeps satisfying the 20x rule"
+    },
+    {
+      "classId": 7,
+      "asset": "XRP",
+      "hlMarket": "XRP-USDC",
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "binance",
+      "notes": "lambda $1.4k/s [CITED: LIQUIDITY.md] -> ~$3.6k payout ceiling at 10s window via G3"
+    },
+    {
+      "classId": 8,
+      "asset": "BNB",
+      "hlMarket": null,
+      "tier": "B",
+      "maxMultX1e4": 100000,
+      "stakeDivisor": 120,
+      "settleRef": "binance",
+      "notes": "lambda $0.9k/s [CITED]; G3 ceiling ~$2.2k at 10s"
+    },
+    {
+      "classId": 9,
+      "asset": "DOGE",
+      "hlMarket": "DOGE-USDC",
+      "tier": "C",
+      "maxMultX1e4": 50000,
+      "stakeDivisor": 200,
+      "settleRef": "binance",
+      "notes": "lambda $419/s [CITED] — near permanent G3 floor; 5x cap, divisor 200"
+    }
+  ]
+}
